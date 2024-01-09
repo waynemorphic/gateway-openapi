@@ -1,0 +1,96 @@
+swagger: "2.0"
+info:
+  title: "Demo API"
+  description: "The API specification is a demo for creating an APIGateway 
+    to be deployed on GCP"
+  version: "1.0.0"
+host: "echo-api.endpoints.verdant-art-410710.cloud.goog"
+basePath: "/api/v1"
+tags:
+  - name: "API Gateway demo"
+    description: "Demo for API Gateway for GCP deployment"
+paths:
+  /employee:
+    post:
+      tags:
+        - "Create an employee"
+      summary: "Create an employee"
+      description: "Creates an employee with given details"
+      operationId: "createEmployee"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Employee creation"
+          required: true
+          schema:
+            $ref: "#/definitions/EmployeeData"
+      responses:
+        "200":
+          description: "Employee posted successfully"
+        "405":
+          description: "Invalid input"
+      security:
+        - basicAuth: []
+  /employee/{employeeId}:
+    get:
+      tags:
+        - "Employee Details by employee id"
+      summary: "Fetch all employee details by their employee id"
+      description: "Returns all details of the employee"
+      operationId: "getEmployeeById"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "employeeId"
+          description: "The employee id"
+          type: integer
+          format: "int64"
+          required: true
+      responses:
+        "200":
+          description: "Employee fetched successfully"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "401":
+          description: "Unauthorized"
+      security:
+        - api_key: []
+definitions:
+  EmployeeData:
+    type: "object"
+    properties:
+      employeeId:
+        type: "integer"
+        format: "int64"
+        example: 123
+      firstName:
+        type: "string"
+        description: "The employee first name"
+        example: "John"
+      lastName:
+        type: "string"
+        description: "The employee last name"
+        example: "Doe"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+securityDefinitions:
+  basicAuth:
+    type: "basic"
+  api_key:
+    type: "apiKey"
+    in: "header"
+    name: "API_KEY"
+
