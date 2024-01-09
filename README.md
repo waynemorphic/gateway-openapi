@@ -25,3 +25,7 @@ To use *Google Cloud Endpoints* to deploy and monitor the API Gateway configured
   `gcloud endpoints services deploy <openapi_spec_file_name.yaml>`
 
 Wait for Operation to complete successfully
+
+## URL
+
+https://console.cloud.google.com/endpoints/api/echo-api.endpoints.verdant-art-410710.cloud.goog/overview?project=verdant-art-410710
